@@ -46,4 +46,13 @@ public class MemberService {
 		return checkId;
 	}
 
+	public MemberDTO getInfo(String sessionId) {
+		Connection con = getConnection();
+		MemberDAO dao = MemberDAO.getInstance();
+		dao.setConnection(con);
+		MemberDTO userInfo = dao.getInfo(sessionId);
+		close(con);
+		return userInfo;
+	}
+
 }

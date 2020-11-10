@@ -33,7 +33,7 @@ public class MemberDAO {
 			pstmt.setString(1, uId);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				result = rs.getString(1);
+				result = rs.getString(1) + 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,6 +80,29 @@ public class MemberDAO {
 			close(rs);
 		}
 		return checkId;
+	}
+	public MemberDTO getInfo(String sessionId) {
+		String sql = "SELECT * FROM MEMBERS WHERE ID=?";
+		MemberDTO userInfo = new MemberDTO();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, sessionId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				userInfo.setUserId(rs.getNString(1));
+				userInfo.setUserPw(rs.getNString(2));
+				userInfo.setUserName(rs.getNString(3));
+				userInfo.setUserBirth(rs.getDate(4));
+				userInfo.setUserGender(rs.getNString(5));
+				userInfo.setUserEmail(rs.getNString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return userInfo;
 	}
 	
 }

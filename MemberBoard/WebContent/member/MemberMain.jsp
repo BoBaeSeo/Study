@@ -5,6 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>MemberMain.jsp</title>
+<style>
+fieldset{width: 300px;}
+</style>
 </head>
 <body>
 	<h2>MemberMain.jsp</h2>
@@ -21,13 +24,13 @@
 		location.href="/MemberBoard/Main.jsp";
 	}		
 	function modify(){
-		location.href="MemberBoard/member/memberModify";
+		location.href="/MemberBoard/member/memberModify";
 	}
 	function board(){
 		location.href="/MemberBoard/board/boardList";
 	}
 	function logout(){
-		location.href="/MemberBoard/board/memberLogout";
+		location.href="/MemberBoard/member/memberLogout";
 	}
 </script>
 </html>

@@ -97,9 +97,21 @@ public class MemberController extends HttpServlet {
 				out.println("</script>");
 			} else {
 				session.setAttribute("checkId", checkId);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("MemberMain.jsp");
-				dispatcher.forward(request, response);
+				response.sendRedirect("MemberMain.jsp");
 			}
+			break;
+		case "/member/memberLogout":
+			System.out.println("/member/memberLogout");
+			session.invalidate();
+			response.sendRedirect("/MemberBoard/Main.jsp");
+			break;
+		case "/member/memberModify":
+			System.out.println("/member/memberModify");
+			String sessionId = (String) session.getAttribute("checkId");
+			MemberDTO userInfo = memberService.getInfo(sessionId);
+			request.setAttribute("userInfo", userInfo);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/ViewMember.jsp");
+			dispatcher.forward(request, response);
 			break;
 		}
 	}
