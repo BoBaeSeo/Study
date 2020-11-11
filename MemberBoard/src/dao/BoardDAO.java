@@ -92,7 +92,7 @@ public class BoardDAO {
 	}
 
 	public ArrayList<BoardDTO> getWriteList(String userId) {
-		String sql = "SELECT * FROM BOARDS WHERE BWRITER=?";
+		String sql = "SELECT * FROM BOARDS WHERE BWRITER=? ORDER BY BNUMBER";
 		ArrayList<BoardDTO> writeList = new ArrayList<BoardDTO>();
 		BoardDTO write = null;
 		try {
@@ -117,4 +117,105 @@ public class BoardDAO {
 		}
 		return writeList;
 	}
+
+	public BoardDTO boardView(int bNumber) {
+		String sql = "SELECT * FROM BOARDS WHERE BNUMBER=?";
+		BoardDTO boardView = new BoardDTO();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				boardView.setbNumber(rs.getInt(1));
+				boardView.setbWriter(rs.getNString(2));
+				boardView.setbPassword(rs.getNString(3));
+				boardView.setbTitle(rs.getNString(4));
+				boardView.setbContents(rs.getNString(5));
+				boardView.setbDate(rs.getDate(6));
+				boardView.setbHits(rs.getInt(7));
+				boardView.setbFile(rs.getNString(8));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return boardView;
+	}
+
+	public int updateHits(int bNumber) {
+		String sql = "UPDATE BOARDS SET BHITS=BHITS+1 WHERE BNUMBER=?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int boardDel(int bNumber) {
+		String sql = "DELETE FROM BOARDS WHERE BNUMBER=?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public BoardDTO boardModify(int bNumber) {
+		String sql = "SELECT * FROM BOARDS WHERE BNUMBER=?";
+		BoardDTO dto = new BoardDTO();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setbNumber(rs.getInt(1));
+				dto.setbWriter(rs.getNString(2));
+				dto.setbPassword(rs.getNString(3));
+				dto.setbTitle(rs.getNString(4));
+				dto.setbContents(rs.getNString(5));
+				dto.setbDate(rs.getDate(6));
+				dto.setbHits(rs.getInt(7));
+				dto.setbFile(rs.getNString(8));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return dto;
+	}
+
+	public int boardUpdate(BoardDTO changeDTO) {
+		String sql = "UPDATE BOARDS SET BTITLE=?, BCONTENTS=?, BFILE=? WHERE BNUMBER=?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setNString(1, changeDTO.getbTitle());
+			pstmt.setNString(2, changeDTO.getbContents());
+			pstmt.setString(3, changeDTO.getbFile());
+			pstmt.setInt(4, changeDTO.getbNumber());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

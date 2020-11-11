@@ -21,7 +21,7 @@ import service.BoardService;
 /**
  * Servlet implementation class BoardController
  */
-@WebServlet(value={"/board/boardList", "/board/boardWrite", "/board/userWrite"})
+@WebServlet(value={"/board/boardList", "/board/boardWrite", "/board/userWrite", "/board/boardView", "/board/boardDel", "/board/boardModify", "/board/boardUpdate"})
 public class BoardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -62,6 +62,7 @@ public class BoardController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/board/BoardList.jsp");
 			dispatcher.forward(request, response);
 			break;
+			
 		case "/board/boardWrite":
 			System.out.println("/board/boardWrite");
 			BoardDTO contents =  new BoardDTO();
@@ -98,12 +99,68 @@ public class BoardController extends HttpServlet {
 			System.out.println("/board/userWrite");
 			userId = (String) session.getAttribute("checkId");
 			ArrayList<BoardDTO> writeList = boardService.getWriteList(userId);
-			request.setAttribute("writeList", writeList);
-			dispatcher = request.getRequestDispatcher("WriteList.jsp");
+			request.setAttribute("boardList", writeList);
+			request.setAttribute("back", "myList");
+			dispatcher = request.getRequestDispatcher("/board/BoardList.jsp");
 			dispatcher.forward(request, response);
 			break;
-			
-		
+		case "/board/boardView":
+			System.out.println("/board/boardView");
+			String getNum = (String) request.getParameter("bNumber");
+			int bNumber = Integer.parseInt(getNum);
+			BoardDTO boardView = boardService.boardView(bNumber);
+			request.setAttribute("boardView", boardView);
+			dispatcher = request.getRequestDispatcher("BoardView.jsp");
+			dispatcher.forward(request, response);
+			break;
+		case "/board/boardDel":
+			System.out.println("/board/boardDel");
+			getNum = (String) request.getParameter("bNumber");
+			bNumber = Integer.parseInt(getNum);
+			int delResult = boardService.boardDel(bNumber);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			if(delResult > 0) {
+				out.println("<script>");
+				out.println("alert('삭제가 완료되었습니다.')");
+				out.println("location.href='/MemberBoard/board/boardList'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('삭제에 실패하였습니다.')");
+				out.println("location.href='/MemberBoard/board/boardList'");
+				out.println("</script>");
+			}
+			break;
+		case "/board/boardModify":
+			System.out.println("/board/boardModify");
+			getNum = (String) request.getParameter("bNumber");
+			bNumber = Integer.parseInt(getNum);
+			BoardDTO modifyDTO = boardService.boardModify(bNumber);
+			request.setAttribute("userDTO", modifyDTO);
+			dispatcher = request.getRequestDispatcher("boardModify.jsp");
+			dispatcher.forward(request, response);
+			break;
+		case "/board/boardUpdate":
+			System.out.println("/board/boardUpdate");
+			BoardDTO changeDTO = new BoardDTO();
+			changeDTO.setbNumber(Integer.parseInt((String) request.getParameter("bNumber")));
+			changeDTO.setbTitle((String) request.getParameter("bTitle"));
+			changeDTO.setbContents((String) request.getParameter("bContents"));
+			int updateResult = boardService.boardUpdate(changeDTO);
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter();
+			if(updateResult > 0) {
+				out.println("<script>");
+				out.println("alert('수정이 완료되었습니다.')");
+				out.println("location.href='/MemberBoard/board/boardList'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('수정에 실패하였습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
 		}
 		
 	}

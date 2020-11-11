@@ -45,5 +45,6 @@
 	function boardList(){
 		location.href="/MemberBoard/board/boardList";
 	}
+	
 </script>
 </html>

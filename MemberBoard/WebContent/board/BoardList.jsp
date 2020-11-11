@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>BoardList.jsp</title>
 <style>
-	table, tr, td{border: 1px solid black; border-collapse: collapse;}
+	table, tr, td, th{border: 1px solid black; border-collapse: collapse;}
 	fieldset{width: 250px; }
 </style>
 </head>
@@ -39,18 +39,29 @@
 		<c:forEach var="list" items="${boardList}">
 			<tr>
 				<td>${list.bNumber}</td>
-				<td><img src = "../fileupload/${list.bFile}" alt="${list.bFile}" width ="50" height ="50"><br></td>
-				<td><a href="/board/boardView">${list.bTitle}</a></td>
+				<td><c:if test="${list.bFile != null }">
+				<img src = "../fileupload/${list.bFile}" alt="${list.bFile}" width ="50" height ="50"><br>
+				</c:if></td>
+				<td><a href="/MemberBoard/board/boardView?bNumber=${list.bNumber}">${list.bTitle}</a></td>
 				<td>${list.bWriter}</td>
 				<td>${list.bDate}</td>
 				<td>${list.bHits}</td>
 			</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="6">
+				<c:choose>
+					<c:when test="${back != null}">
+						<button onclick="allList()">전체 목록</button>
+					</c:when>
+					<c:when test="${sessionScope.checkId != null}">
+						<button onclick="userWrite()">내가 쓴 글 목록</button> 
+					</c:when>
+				</c:choose>
+				<button onclick="boardWrite()">글쓰기</button>
+			</td>
+		</tr>
 	</table>
-	<c:if test="${sessionScope.checkId != null}">
-	<button onclick="userWrite()">내가쓴글</button> 
-	</c:if>
-	<button onclick="boardWrite()">글쓰기</button>
 </body>
 <script>
 	function main() {
@@ -66,7 +77,7 @@
 		location.href = "/MemberBoard/board/userWrite";
 	}
 	function boardWrite(){
-		if(${sessionScope.checkId == null}){
+		if(${sessionScope.checkId == null }){
 			alert("로그인이 필요합니다.");
 		} else {
 			location.href = "/MemberBoard/board/BoardWrite.jsp";
@@ -78,6 +89,8 @@
 	function login(){
 		location.href = "/MemberBoard/member/LoginForm.jsp";		
 	}
-	
+	function allList(){
+		location.href="/MemberBoard/board/boardList";
+	}
 </script>
 </html>
