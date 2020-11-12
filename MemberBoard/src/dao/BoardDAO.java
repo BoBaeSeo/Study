@@ -218,4 +218,23 @@ public class BoardDAO {
 		return result;
 	}
 
+	public String getBFile(int bNumber) {
+		String sql = "SELECT BFILE FROM BOARDS WHERE BNUMBER=?";
+		String delBFile = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bNumber);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				delBFile = rs.getNString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return delBFile;
+	}
+
 }

@@ -35,6 +35,14 @@
 			<td><textarea name="bContents" cols="40" rows="20">${userDTO.bContents}</textarea></td>
 		</tr>
 		<tr>
+			<td>파일</td>
+			<td><input type="hidden" name="bFile" value="${userDTO.bFile }">
+			<c:if test="${userDTO.bFile != null }">
+			<img src="/MemberBoard/fileupload/${userDTO.bFile }" width="100" height="100">
+			</c:if>
+			<br><input type="file" name="newFile"></td>
+		</tr>
+		<tr>
 			<td colspan="2"><input type="button" onclick="checkPw()" value="글수정"> <input type="button" value="목록" onclick="boardList()"></td>
 		</tr>
 	</table>

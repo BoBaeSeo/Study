@@ -97,5 +97,14 @@ public class BoardService {
 		return result;
 	}
 
+	public String getBFile(int bNumber) {
+		Connection con = getConnection();
+		BoardDAO dao = BoardDAO.getInstance();
+		dao.setConnection(con);
+		String delFile = dao.getBFile(bNumber);
+		close(con);
+		return delFile;
+	}
+
 
 }

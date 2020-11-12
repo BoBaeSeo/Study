@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class BoardController extends HttpServlet {
 			break;
 			
 		case "/board/boardWrite":
-			System.out.println("/board/boardWrite");
+			System.out.println(request.getServletPath());
 			BoardDTO contents =  new BoardDTO();
 			int size = 10*1024*1024;
 			String savePath = "C:/Users/1/git/repository/MemberBoard/WebContent/fileupload";
@@ -79,8 +80,7 @@ public class BoardController extends HttpServlet {
 			contents.setbPassword(multi.getParameter("bPassword"));
 			contents.setbTitle(multi.getParameter("bTitle"));
 			contents.setbContents(multi.getParameter("bContents"));
-			String bFile = multi.getParameter("bFile");
-			bFile = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
+			String bFile = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
 			contents.setbFile(bFile);
 			System.out.println(contents.getbContents());
 			int result = boardService.boardWriteDB(contents);
@@ -117,10 +117,13 @@ public class BoardController extends HttpServlet {
 			System.out.println("/board/boardDel");
 			getNum = (String) request.getParameter("bNumber");
 			bNumber = Integer.parseInt(getNum);
+			String delFile = boardService.getBFile(bNumber);
 			int delResult = boardService.boardDel(bNumber);
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			savePath = "C:/Users/1/git/repository/MemberBoard/WebContent/fileupload";
 			if(delResult > 0) {
+				new File(savePath+"/"+delFile).delete();
 				out.println("<script>");
 				out.println("alert('삭제가 완료되었습니다.')");
 				out.println("location.href='/MemberBoard/board/boardList'");
@@ -144,16 +147,33 @@ public class BoardController extends HttpServlet {
 		case "/board/boardUpdate":
 			System.out.println("/board/boardUpdate");
 			BoardDTO changeDTO = new BoardDTO();
-			changeDTO.setbNumber(Integer.parseInt((String) request.getParameter("bNumber")));
-			changeDTO.setbTitle((String) request.getParameter("bTitle"));
-			changeDTO.setbContents((String) request.getParameter("bContents"));
+			size = 10*1024*1024;
+			savePath = "C:/Users/1/git/repository/MemberBoard/WebContent/fileupload";
+			multi = new MultipartRequest (
+					request,
+					savePath,
+					size,
+					"UTF-8",
+					new DefaultFileRenamePolicy()
+					);
+			changeDTO.setbNumber(Integer.parseInt((String) multi.getParameter("bNumber")));
+			changeDTO.setbTitle((String) multi.getParameter("bTitle"));
+			changeDTO.setbContents((String) multi.getParameter("bContents"));
+			String newFile = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
+			if(newFile != null) {
+				changeDTO.setbFile(newFile);				
+			} else {
+				changeDTO.setbFile((String)multi.getParameter("bFile"));
+			}
 			int updateResult = boardService.boardUpdate(changeDTO);
 			response.setContentType("text/html; charset=UTF-8");
 			out = response.getWriter();
 			if(updateResult > 0) {
+				new File(savePath+"/"+multi.getParameter("bFile")).delete();
 				out.println("<script>");
 				out.println("alert('수정이 완료되었습니다.')");
-				out.println("location.href='/MemberBoard/board/boardList'");
+				out.print("location.href=");
+				out.println("'/MemberBoard/board/boardView?bNumber="+changeDTO.getbNumber()+"'");
 				out.println("</script>");
 			} else {
 				out.println("<script>");
