@@ -55,4 +55,32 @@ public class MemberService {
 		return userInfo;
 	}
 
+	public int modifyDB(String modId, MemberDTO modDto) {
+		Connection con = getConnection();
+		MemberDAO dao = MemberDAO.getInstance();
+		dao.setConnection(con);
+		int modResult = dao.modifyDB(modId, modDto);
+		if(modResult > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return modResult;
+	}
+
+	public int delIdDB(String delId) {
+		Connection con = getConnection();
+		MemberDAO dao = MemberDAO.getInstance();
+		dao.setConnection(con);
+		int delResult = dao.delIdDB(delId);
+		if(delResult > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return delResult;
+	}
+
 }

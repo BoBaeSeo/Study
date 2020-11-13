@@ -116,6 +116,8 @@ public class BoardController extends HttpServlet {
 		case "/board/boardDel":
 			System.out.println("/board/boardDel");
 			getNum = (String) request.getParameter("bNumber");
+			String getFile = request.getParameter("bFile");
+			System.out.println(getFile);
 			bNumber = Integer.parseInt(getNum);
 			String delFile = boardService.getBFile(bNumber);
 			int delResult = boardService.boardDel(bNumber);

@@ -14,10 +14,15 @@
 <body>
 	<h2>BoardList.jsp</h2>
 	<fieldset>
-		<c:if test="${sessionScope.checkId != null}">
+		<c:choose>
+		<c:when test="${sessionScope.checkId != null}">
 		<legend><%=session.getAttribute("checkId") %>님 환영합니다.</legend>
-		</c:if>
-		<button onclick="main()">메인으로</button> 
+		<button onclick="memMain()">메인으로</button> 
+		</c:when>
+		<c:otherwise>
+		<button onclick="main()">메인으로</button>
+		</c:otherwise>
+		</c:choose>
 		<c:choose>
 			<c:when test="${sessionScope.checkId != null}">
 				<button onclick="modify()">회원수정</button> <button onclick="logout()">로그아웃</button>
@@ -66,6 +71,9 @@
 <script>
 	function main() {
 		location.href = "/MemberBoard/Main.jsp";
+	}
+	function memMain() {
+		location.href = "/MemberBoard/member/MemberMain.jsp";
 	}
 	function modify() {
 		location.href = "/MemberBoard/member/memberModify";

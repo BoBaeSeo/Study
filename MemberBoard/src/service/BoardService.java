@@ -1,11 +1,16 @@
 package service;
 
+import static db.JdbcUtil.close;
+import static db.JdbcUtil.commit;
+import static db.JdbcUtil.getConnection;
+import static db.JdbcUtil.rollback;
+
+import java.io.File;
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.BoardDAO;
 import dto.BoardDTO;
-import static db.JdbcUtil.*;
 
 public class BoardService {
 
@@ -104,6 +109,26 @@ public class BoardService {
 		String delFile = dao.getBFile(bNumber);
 		close(con);
 		return delFile;
+	}
+
+	public void delBoardDB(String delId) {
+		Connection con = getConnection();
+		BoardDAO dao = BoardDAO.getInstance();
+		dao.setConnection(con);
+		ArrayList<String> bFileList = dao.getBoardDB(delId);
+		if(bFileList.get(0) != null) {
+			String savePath = "C:/Users/1/git/repository/MemberBoard/WebContent/fileupload";
+			for(int i=0; i < bFileList.size(); i++) {
+				new File(savePath + "/" + bFileList.get(i)).delete();				
+			}
+			int delResult = dao.delBoardDB(delId); 
+			if(delResult > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		}
+		close(con);
 	}
 
 

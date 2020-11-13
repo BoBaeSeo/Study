@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.MemberDTO;
+import service.BoardService;
 import service.MemberService;
 
 /**
  * Servlet implementation class MemberController
  */
-@WebServlet(value={"/member/memberLogin", "/member/memberLogout", "/member/memberJoin", "/member/memberModify", "/member/checkId"})
+@WebServlet(value={"/member/memberLogin", "/member/memberLogout", "/member/memberJoin", "/member/memberModify", "/member/checkId", "/member/modifyUser", "/member/memberDelete"})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -112,6 +113,51 @@ public class MemberController extends HttpServlet {
 			request.setAttribute("userInfo", userInfo);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/ViewMember.jsp");
 			dispatcher.forward(request, response);
+			break;
+		case "/member/modifyUser":
+			System.out.println("/member/modifyUser");
+			String modId = (String) session.getAttribute("checkId");
+			MemberDTO modDto = new MemberDTO();
+			modDto.setUserPw(request.getParameter("newPw"));
+			modDto.setUserName(request.getParameter("newName"));
+			modDto.setUserBirth(Date.valueOf(request.getParameter("newBirth")));
+			modDto.setUserEmail(request.getParameter("newEmail"));
+			int modResult = memberService.modifyDB(modId, modDto);
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter();
+			if(modResult > 0) {
+				out.println("<script>");
+				out.println("alert('회원수정이 완료되었습니다.')");
+				out.println("location.href='/MemberBoard/member/MemberMain.jsp'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원수정에 실패하였습니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			break;
+		case "/member/memberDelete":
+			System.out.println("/member/memberDelete");
+			String delId = (String) session.getAttribute("checkId");
+			BoardService boardService = new BoardService();
+			boardService.delBoardDB(delId);
+			int delIdResult = memberService.delIdDB(delId);
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter();
+			if(delIdResult > 0) {
+				session.invalidate();
+				out.println("<script>");
+				out.println("alert('삭제가 완료되었습니다.')");
+				out.println("location.href='/MemberBoard/Main.jsp'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('삭제에 실패하였습니다.')");
+				out.println("location.href='/MemberBoard/member/MemberMain.jsp'");
+				out.println("</script>");
+
+			}
 			break;
 		}
 	}

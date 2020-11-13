@@ -104,5 +104,37 @@ public class MemberDAO {
 		}
 		return userInfo;
 	}
+	public int modifyDB(String modId, MemberDTO modDto) {
+		String sql = "UPDATE MEMBERS SET PW=?, NAME=?, BIRTH=?, EMAIL=? WHERE ID=? ";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setNString(1, modDto.getUserPw());
+			pstmt.setString(2, modDto.getUserName());
+			pstmt.setDate(3, modDto.getUserBirth());
+			pstmt.setNString(4, modDto.getUserEmail());
+			pstmt.setString(5, modId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int delIdDB(String delId) {
+		String sql = "DELETE FROM MEMBERS WHERE ID=?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, delId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

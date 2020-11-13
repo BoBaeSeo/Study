@@ -55,7 +55,7 @@ table, tr, td{border: 1px solid black; border-collapse: collapse;}
 		var writePw = prompt("비밀번호를 입력하세요");
 		var boardPw = ${boardView.bPassword};
 		if(writePw == boardPw){
-			location.href="/MemberBoard/board/boardDel?bNumber=${boardView.bNumber}";			
+			location.href="/MemberBoard/board/boardDel?bNumber=${boardView.bNumber}&bFile=${boardView.bFile}";			
 		} else {
 			alert("비밀번호가 일치하지않습니다.")
 		}

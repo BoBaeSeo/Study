@@ -237,4 +237,40 @@ public class BoardDAO {
 		return delBFile;
 	}
 
+	public ArrayList<String> getBoardDB(String delId) {
+		String sql = "SELECT BFILE FROM BOARDS WHERE BWRITER=?";
+		ArrayList<String> bFileList = new ArrayList<String>();
+		String bFile = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setNString(1, delId);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				bFile = rs.getString(1);
+				bFileList.add(bFile);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		return bFileList;
+	}
+
+	public int delBoardDB(String delId) {
+		String sql = "DELETE FROM BOARDS WHERE BWRITER=?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, delId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

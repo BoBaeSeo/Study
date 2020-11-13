@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>MemberMain.jsp</title>
 <style>
-fieldset{width: 300px;}
+fieldset{width: 370px;}
 </style>
 </head>
 <body>
@@ -16,6 +16,7 @@ fieldset{width: 300px;}
 		<button onclick="main()">메인으로</button>
 		<button onclick="modify()">회원수정</button>
 		<button onclick="board()">게시판</button>
+		<button onclick="delUser()">회원탈퇴</button>
 		<button onclick="logout()">로그아웃</button>
 	</fieldset>
 </body>
@@ -31,6 +32,9 @@ fieldset{width: 300px;}
 	}
 	function logout(){
 		location.href="/MemberBoard/member/memberLogout";
+	}
+	function delUser(){
+		location.href="/MemberBoard/member/memberDelete";
 	}
 </script>
 </html>
