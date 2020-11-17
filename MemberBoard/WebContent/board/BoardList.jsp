@@ -85,7 +85,7 @@
 		location.href = "/MemberBoard/board/userWrite";
 	}
 	function boardWrite(){
-		if(${sessionScope.checkId == null }){
+		if( ${sessionScope.checkId == null }){
 			alert("로그인이 필요합니다.");
 		} else {
 			location.href = "/MemberBoard/board/BoardWrite.jsp";

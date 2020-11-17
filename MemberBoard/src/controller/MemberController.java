@@ -154,7 +154,7 @@ public class MemberController extends HttpServlet {
 			} else {
 				out.println("<script>");
 				out.println("alert('삭제에 실패하였습니다.')");
-				out.println("location.href='/MemberBoard/member/MemberMain.jsp'");
+				out.println("history.back()");
 				out.println("</script>");
 
 			}
