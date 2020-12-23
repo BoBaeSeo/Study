@@ -1,0 +1,267 @@
+
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600");
+
+html,body{
+    width: 100%;
+    height: 100%;
+}hr{
+    clear: both;
+}
+div{
+    box-sizing: border-box;
+}
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 18px;
+    color: whitesmoke;
+    background-color: #41484c;
+}
+#box {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin: 0%;
+}
+#menu {
+    background-color: #222629;
+    float: left;
+    height: 100%;
+    width: 20%;
+    padding: 2%;
+    position: relative;
+}
+#banner {
+    background-color: #333;
+    height: 15%;
+    width: 80%;
+    padding: 1%;
+    text-align: center;
+    position: relative;
+    float: right;
+}
+#main {
+    float: left;
+    height: 85%;
+    width: 80%;
+    position: relative;
+}#login .title{    
+    text-align: right;
+}#login input{
+    float: right;
+}#menu #btn_1{
+   float: right;
+}#logo .title{
+    text-align: right;
+    font-size: 30px;
+}#logo p{
+    text-align: right;
+    font-size: 10px;
+}#logo #level img{
+    width: 40px;
+    height: 40px;
+}#logo #level{
+    display: inline;
+    float: right;    
+    margin-right: 10px;
+    margin-bottom: 10px;
+}#logo #btn_2{
+    float: right;
+    margin-top: 15px;
+    margin-bottom: 9px;
+ }nav{
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+    display: block;
+}#nav ul {
+	list-style: none;
+	padding-left: 0;
+	margin-bottom: 0;
+}#nav ul li {
+    padding-left: 0;
+}#nav ul li:hover{
+    background-color: #5666a5;
+    color: #ffffff;
+}#nav ul li a {
+    display: block;
+    padding: 0.5em 1.5em 0.5em 1.5em;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    outline: 0;
+    border: 0;
+    -moz-transition: none;
+    -webkit-transition: none;
+    -ms-transition: none;
+    transition: none;
+}#nav ul li a span {
+	position: relative;
+	display: block;
+	font-size: 0.8em;
+}#nav ul li a span:before {
+	position: absolute;
+	left: 0;
+	color: #41484c;
+	text-align: center;
+	width: 1.25em;
+	line-height: 1.75em;
+}#nav ul li a.active {
+	background: rgba(0, 0, 0, 0.15);
+	box-shadow: inset 0 0 0.25em 0 rgba(0, 0, 0, 0.125);
+    color: #fff;
+}#nav ul li a.active span:before {
+    color: #e27689;}
+
+
+#header .icons {
+	font-size: 0.8em;
+	text-align: center;
+}
+#header .icons a {
+	color: #41484c;
+	-moz-transition: color 0.35s ease-in-out;
+	-webkit-transition: color 0.35s ease-in-out;
+	-ms-transition: color 0.35s ease-in-out;
+    transition: color 0.35s ease-in-out;
+}
+
+#banner #mark{
+    float: left;
+    width: 60%;
+    height: 100%;
+}#banner #search{
+    float: right;
+    width: 40%;
+    height: 100%;
+}#post,#info,#comments,#buyticket,#contents{
+    border: 1px solid black;
+    box-sizing: border-box;
+    margin: 1%;
+}#post,#info,#conntents,#comments,#grade,#commentsAdd,#commentsList,#buyticket{
+    padding: 1%;
+    
+    box-sizing: border-box;
+}#post{
+    float: left;
+    width: 30%;
+    height: 40%;
+    
+}#info{
+    float: left;
+    width: 30%;
+    height: 40%;
+    padding: 2%;
+    
+}#comments{
+    float: right;
+    width: 34%;
+    height: 95%;
+    
+    
+}#buyticket{
+    float: left;
+    width: 62%;
+    height: 22%;
+    
+    
+}#contents{
+    float: left;
+    width: 62%;
+    height:22%;
+    
+    padding: 2%;
+}#grade{
+    width: 100%;
+    height: 10%;
+    
+}#commentsAdd{
+    width: 100%;
+    height: 15%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}#commentsList{
+    width: 100%;
+    height: 75%;
+    
+}#post img{
+    width:100%;
+    height:100%;
+}#comments #grade{
+    text-align: center;
+    line-height: 1.5cm;
+}#commentsAdd_header{
+    width:30%;
+    height:100%;
+    float: left;
+}#commentsAdd_content{
+    padding-top: 5%;
+    width:80%;
+    height:80%;
+    float: left;
+    display: block;
+}#commentsAdd_submit{
+    width:20%;
+    height:80%;
+    float: right;
+    margin-top: 5%;
+}#commentsAdd_submit input{
+    width:100%;
+    height:80%;
+}
+#commentsAdd_grade{
+    width:45%;
+    height:30%;
+    float: left;
+}#commentsAdd_pw input{
+    width:45%;
+    height:100%;
+    margin-left: 10px;
+    
+
+}#commentsAdd_content input{
+    width:95%;
+    font-size: 15px;
+}#commentsAdd_grade select{
+    width: 100%; 
+    height: 100%;
+    font-size: 15px;
+    padding: auto;
+    margin: auto;
+}#buyticket_info,#buyticket_btn,#buyticket_info2{
+    
+}#buyticket_form{
+    width: 100%;
+    height: 100%;
+}
+#buyticket_info{
+    width: 60%;
+    height: 100%;
+    float: left;
+}#buyticket_btn{
+    width: 40%;
+    height: 100%;
+    float: right;
+}#buyticket_btn{
+    padding: 1%;
+    padding-top: 3%;
+    text-align: center;
+}#buyticket_btn input{
+    border-radius: 10px;
+    width: 45%;
+    height: 70%;
+    font-size: 20px;   
+}#buyticket_info2{
+    width: 50%;
+    height: 100%;
+    float: right;
+}#buyticket_info1{
+    width: 50%;
+    height: 100%;
+    float: left;
+}.grade_img img{
+    	width: 100px; height: 20px;
+    }
+
+
