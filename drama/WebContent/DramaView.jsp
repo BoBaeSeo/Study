@@ -50,19 +50,20 @@
                 <li><a id="contact-link" onclick="LoginCheck4()">회원탈퇴</a></li>
             </ul>
         </nav>
+        <br><br>
+			<p>연극 검색</p>
+			<div id="search">
+				<form method="get" action="Search">
+					<input name="dname"> <input type="submit" value="검색">
+				</form>
+			</div>
         </div>
         
         <div id="banner">
         <div id="mark">
         	<a href="Main.jsp">
-			<img width="100" id="Drama" src="File/Logo.png">
+			<img width="200" id="Drama" src="File/logo.png">
 			</a>
-        </div>
-        <div id="search">
-        	<form method="get" action="Search">
-         		<input name="dname">
-         		<input type="submit" value="검색">
-    		</form>
         </div>
         </div>
 <!--  여기서부터 메인창 수정 부분 -->

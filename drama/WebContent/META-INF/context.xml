@@ -3,7 +3,7 @@
 
 	<Resource name="jdbc/OracleDB" auth="Container"
 
-		type="javax.sql.DataSource" username="JWO_JSP" password="1111"
+		type="javax.sql.DataSource" username="SBB_JSP" password="1111"
 
 		driverClassName="oracle.jdbc.driver.OracleDriver"
 
