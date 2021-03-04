@@ -148,8 +148,32 @@ $(".hover").mouseleave(
 	      $(this).removeClass("hover");
 	    }
 	  );
+function LoginCheck(){
+	location.href = "DramaList";
+}
+function LoginCheck2(){
+
+if(${sessionScope.idCheck == null}){
+	alert("로그인후 이용해 주세요.");
+} else{
+	location.href = "Modify";
+}
+}
+function LoginCheck3(){
+if(${sessionScope.idCheck == null}){
+	alert("로그인후 이용해 주세요.");
+} else{
+	location.href = "TicketList";
+}
+}
+function LoginCheck4(){
+if(${sessionScope.idCheck == null}){
+	alert("로그인후 이용해 주세요.");
+} else{
+	location.href = "Modify";
+}
+}
 </script>
-</style>
 </head>
 <link rel="stylesheet" href="CSS/Main.css">
 <body>
@@ -194,7 +218,7 @@ $(".hover").mouseleave(
 					<li><a id="top-link" onclick="LoginCheck()">예매하기</a></li>
 					<br>
 					<br>
-					<li><a href="#" id="portfolio-link" onclick="LoginCheck2()">회원수정</a></li>
+					<li><a id="portfolio-link" onclick="LoginCheck2()">회원수정</a></li>
 					<br>
 					<br>
 					<li><a id="about-link" onclick="LoginCheck3()">예매내역</a></li>
@@ -283,31 +307,6 @@ $(".hover").mouseleave(
 	</div>
 
 </body>
-<script type="text/javascript">
-function LoginCheck(){
-	location.href = "DramaList";
-}
-function LoginCheck2(){
 
-if(${sessionScope.idCheck == null}){
-	alert("로그인후 이용해 주세요.");
-} else{
-	location.href = "Modify";
-}
-}
-function LoginCheck3(){
-if(${sessionScope.idCheck == null}){
-	alert("로그인후 이용해 주세요.");
-} else{
-	location.href = "TicketList";
-}
-}
-function LoginCheck4(){
-if(${sessionScope.idCheck == null}){
-	alert("로그인후 이용해 주세요.");
-} else{
-	location.href = "Modify";
-}
-}
-</script>
+
 </html>

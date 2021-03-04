@@ -88,7 +88,7 @@ table {
 					<li><a id="top-link" onclick="LoginCheck()">예매하기</a></li>
 					<br>
 					<br>
-					<li><a href="#" id="portfolio-link" onclick="LoginCheck2()">회원수정</a></li>
+					<li><a id="portfolio-link" onclick="LoginCheck2()">회원수정</a></li>
 					<br>
 					<br>
 					<li><a id="about-link" onclick="LoginCheck3()">예매내역</a></li>

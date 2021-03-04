@@ -77,7 +77,7 @@
         </c:choose>
         <nav id="nav">
             <ul>
-                <li><a href="#1"  id="top-link" onclick="LoginCheck()">예매하기</a></li>
+                <li><a id="top-link" onclick="LoginCheck()">예매하기</a></li>
                 <br><br>
                 <li><a id="portfolio-link" onclick="LoginCheck2()">회원수정</a></li>
                 <br><br>
